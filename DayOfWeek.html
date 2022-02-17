@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Colin's Day Of Week Calculator</title>
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="" />
+</head>
+
+<body onload="calcDayNames()">
+  <!--[if lt IE 7]>
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="#">upgrade your browser</a> to improve your experience.
+      </p>
+    <![endif]-->
+
+  <!-- <script  -->
+
+  <!-- <script src="scripts/dayOfWeek.js" async defer></script> -->
+  <script>
+    // inline script so we have a single self contained file
+    // if you want - put this in its own file as line or two above <script src="xxx"...
+
+    var outputStrForClipboard = "";     // store the output of the calculation for optional copy to clipboard
+
+    // fill in the element "output" with the days selected
+    // aslo set the outputStrForClipboard global - naughty side effect.
+    function calcDayNames() {
+
+      const monthName = ['January', 'Febuary', 'March',
+        'April', 'May', 'June',
+        'July', 'August', 'September',
+        'October', 'November', 'December'];
+
+      const dayName = ['Sunday', 'Monday', 'Tuesday', 'Wednesday',
+        'Thursday', 'Friday', 'Saturday'];
+
+      function numExt(n) {
+        // console.log("Day request: <" + n + ">:", typeof(n));
+        var res = "oh oh";
+        switch (n) {
+          case 1: 
+          case 21: 
+          case 31:  res = "st";
+                    break;
+
+          case 2: 
+          case 22:  res = "nd";
+                    break;
+
+          case 3:
+          case 23:  return "rd";
+                    break;
+
+          default:  res = "th";
+                    break;
+        }
+        return res;
+      }
+
+      // get the parameters
+      const monthOfInterest = document.getElementById('monthOfInterest').value;   // indexed 0 -> 11
+      const day = parseInt( document.getElementById('day').value );
+      const start = parseInt( document.getElementById('start_year').value );
+      const end = parseInt( document.getElementById('end_year').value );
+      const dayOfInterest = document.getElementById("dayOfInterest").value;
+
+      // console.log("Month : ", monthOfInterest);
+      // console.log('Day => ' + day);
+      // console.log('Start => ' + start);
+      // console.log('End => ' + end);
+
+      // console.log("Hello Dave");
+
+      // for a string with the answer to insert into the output element
+      var sOutput = "";                 // full html'd output
+      outputStrForClipboard = "";       // clear the simple-human-readable string
+      const nMonthOfInterest = monthName.indexOf(monthOfInterest);  // number of month of interest (1-12)
+      for (yr = start; yr <= end; yr++) {   // do the required years
+
+        const date = new Date(yr, nMonthOfInterest, day);     // get a js-date class
+        const calculatedDay = date.getDay();                  // get the day of week, 0 => Sunday
+        const strDay = dayName[calculatedDay];                // get str-name of day of week "Sunday" etc
+        if ((dayOfInterest.toUpperCase() === "ALL") ||        // are we interested in this years day?
+          (dayOfInterest.toUpperCase() === strDay.toUpperCase())) {
+
+          const s = "For year " + yr + " the " + day + numExt(day) + " of " + monthOfInterest + " is a " + strDay;  // human string
+          // sOutput += "<p>" + s + "</p>";                    // html'd string
+          sOutput += s + "<br/>";                    // html'd string
+
+          outputStrForClipboard += s + "\n"                   // human readable full answer (so far)
+        }
+      }
+      document.getElementById('output').innerHTML = sOutput;  // store the html'd string on the screen
+    }
+
+    // copy the current human readable output string to the clipboard
+    function copyOutputToClipboard() {
+
+      navigator.clipboard.writeText(outputStrForClipboard).then(function () {
+        // alert('It worked! Do a CTRL - V to paste')
+        // console.log("Copied : ", outputStrForClipboard);
+      }, function () {
+        alert('Failure to copy. Check permissions for clipboard')
+      });
+    }
+  </script>
+
+
+  <style>
+    /* inlining styles - self contained file etc  */
+    .center {
+      text-align: center;
+      /* border: 2px solid grey; */
+    }
+
+    .button {
+      background-color: #e0e0e0;
+      color: #000000;
+      /* float: right; */
+      padding: 5px;
+      border-radius: 10px;
+      /* margin: 10px; */
+      -moz-border-radius: 10px;
+      -webkit-border-radius: 10px;
+    }
+  </style>
+
+  <!-- <h1>Day of Week Calculator</h1> -->
+
+  <div class="center">
+    <h2>Calculate the day of the week for a month & day over a range of years</h2>
+    <br />
+
+    <label>Month : </label>
+    <!-- <input id="month" type="number" value=3 min=1 max=12 /><br /> -->
+
+    <select id="monthOfInterest" onchange="calcDayNames()">
+      <option value="January">January</option>
+      <option value="February">February</option>
+      <option value="March" selected>March</option>
+      <option value="April">April</option>
+      <option value="May">May</option>
+      <option value="June">June</option>
+      <option value="July">July</option>
+      <option value="August">August</option>
+      <option value="September">September</option>
+      <option value="October">October</option>
+      <option value="November">November</option>
+      <option value="December">December</option>
+    </select>
+    <br />
+
+    <label>Day of Month (1 - 31): </label>
+    <input id="day" type="number" value=17 min=1 max=31 onchange="calcDayNames()" /><br />
+
+    <label>Start year: </label>
+    <input id="start_year" type="number" value=1940 onchange="calcDayNames()" /><br />
+
+    <label>End year: </label>
+    <input id="end_year" type="number" value=1950 onchange="calcDayNames()" /><br />
+
+    <br />
+    <!-- <label>Day of interest (-1 means all, 0 for Sunday, 1 for Monday, ... 6 for Saturday): </label>
+            <input id="interest" type="number" value=-1 min=-1 max=6 /><br />
+            <br /> -->
+
+    <label>Day of interest (which day to match): </label>
+    <select id="dayOfInterest" onchange="calcDayNames()">
+      <option value="All">All</option>
+      <option value="Sunday">Sunday</option>
+      <option value="Monday">Monday</option>
+      <option value="Tuesday">Tuesday</option>
+      <option value="Wednesday">Wednesday</option>
+      <option value="Thursday">Thursday</option>
+      <option value="Friday">Friday</option>
+      <option value="Saturday">Saturday</option>
+    </select>
+
+
+    <br />
+    <!-- <button id="run" class="button" onclick="calcDayNames()">Calculate & Show Days Of Week</button>
+    <br /> -->
+  </div>
+  <br>
+
+  <div class="center">
+    <!-- style="border: 2px solid grey;" > -->
+    <table style="margin: auto;">   <!-- make a table for layout reason-->
+      <tr>
+        <td>
+          <b>Output :</b>
+          <button id="copyToClipBoard" class="button" onClick="copyOutputToClipboard()">Copy To Clipboard</button>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p style="text-align: start;" id="output" ></p>
+        </td>
+        <td></td>
+      </tr>
+    </table>
+    <!-- <p id="output" style="border:black; border-width:1px; border-style:solid;">results appear here</p> -->
+  </div>
+</body>
+
+</html>
