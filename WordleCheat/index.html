@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Wordle Cheat List</title>
+    <script src="./wordleCheat.js"></script>
+
+
+</head>
+<body>
+    <div class="center_horiz">
+        <H1>A cheat list of 5 letter words for Worlde.</H1>
+        <button type="button" class="button" id="clear_all">Clear & Restart</button>
+    </div>
+
+    <div class='center_horiz bordered'>
+        <h4>Put letters that are in the correct column here:</h4>
+        <input class='charCorrectPlace' type="text" id="charCorrectPlace_0" size='3'>
+        <input class='charCorrectPlace' type="text" id="charCorrectPlace_1" size='3'>
+        <input class='charCorrectPlace' type="text" id="charCorrectPlace_2" size='3'>
+        <input class='charCorrectPlace' type="text" id="charCorrectPlace_3" size='3'>
+        <input class='charCorrectPlace' type="text" id="charCorrectPlace_4" size='3'>
+    </div>
+
+    <div class='center_horiz bordered'>
+        <h4>In each column place letters that ARE in the word but can NOT be in that column.</h4>
+        <div>
+            <input class='charWrongPlace' type="text" id="charWrongPlace_00" size='3'>
+            <input class='charWrongPlace' type="text" id="charWrongPlace_01" size='3'>
+            <input class='charWrongPlace' type="text" id="charWrongPlace_02" size='3'>
+            <input class='charWrongPlace' type="text" id="charWrongPlace_03" size='3'>
+            <input class='charWrongPlace' type="text" id="charWrongPlace_04" size='3'>
+        </div>
+            
+        <div>
+            <input class='charWrongPlace' type="text" id="charWrongPlace_10" size='3'>
+            <input class='charWrongPlace' type="text" id="charWrongPlace_11" size='3'>
+            <input class='charWrongPlace' type="text" id="charWrongPlace_12" size='3'>
+            <input class='charWrongPlace' type="text" id="charWrongPlace_13" size='3'>
+            <input class='charWrongPlace' type="text" id="charWrongPlace_14" size='3'>
+        </div>
+
+        <div>
+            <input class='charWrongPlace' type="text" id="charWrongPlace_20" size='3'>
+            <input class='charWrongPlace' type="text" id="charWrongPlace_21" size='3'>
+            <input class='charWrongPlace' type="text" id="charWrongPlace_22" size='3'>
+            <input class='charWrongPlace' type="text" id="charWrongPlace_23" size='3'>
+            <input class='charWrongPlace' type="text" id="charWrongPlace_24" size='3'>
+        </div>
+
+        <div>
+            <input class='charWrongPlace' type="text" id="charWrongPlace_30" size='3'>
+            <input class='charWrongPlace' type="text" id="charWrongPlace_31" size='3'>
+            <input class='charWrongPlace' type="text" id="charWrongPlace_32" size='3'>
+            <input class='charWrongPlace' type="text" id="charWrongPlace_33" size='3'>
+            <input class='charWrongPlace' type="text" id="charWrongPlace_34" size='3'>
+        </div>
+    </div>
+
+    <div class="bordered center_horiz">
+        <h4>Put your DEAD letters here:</h4>
+        <input class='charNotInWord' type="text" id="charDeadInWord" size='30' 
+        autocomplete="new-password" autocapitalize="off" autocomplete="off" autocorrect="off"
+        spellcheck="false">
+    </div>
+
+    <div class="center_horiz bordered">
+        <h4>Possible Words Include:</h4>
+        <p id="possible-words"></p>
+    </div>
+</body>
+</html>
