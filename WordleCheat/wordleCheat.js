@@ -95,8 +95,9 @@ window.onload = () => {
   const doesntHaveLetters = (letters, word) => {
 
     const l = [...letters].filter( x => word.includes(x) );
-    console.log(`letters:"${letters}", word:"${word}", filter:"${l}"`)
-
+    // if (letters.length > 0) {
+    //   console.log(`letters:"${letters}", word:"${word}", filter:"${l}"`)
+    // }
     const intersection = new Set(l);
     return intersection.size == 0;
   }
@@ -240,8 +241,7 @@ window.onload = () => {
       if (doesntHaveLetters(letters, w))
         result.push(w);
     });
-    console.log(`Dead-Filter:  ${letters}, words:${words.length} => ${result.length}`);
-
+    // console.log(`Dead-Filter:  ${letters}, words:${words.length} => ${result.length}`);
     return result;
   }
 
@@ -352,6 +352,8 @@ window.onload = () => {
 
   const charDeadChanged = (el) => {
 
+    const deadLetters = el.value;
+    el.value = deadLetters.toUpperCase();
     showFilteredWords();
   }
 
