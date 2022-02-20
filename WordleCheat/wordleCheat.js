@@ -94,9 +94,10 @@ window.onload = () => {
 
   const doesntHaveLetters = (letters, word) => {
 
-    const intersection = new Set(
-      [...letters].filter(x => word.includes(x))
-    );
+    const l = [...letters].filter( x => word.includes(x) );
+    console.log(`letters:"${letters}", word:"${word}", filter:"${l}"`)
+
+    const intersection = new Set(l);
     return intersection.size == 0;
   }
 
@@ -239,6 +240,8 @@ window.onload = () => {
       if (doesntHaveLetters(letters, w))
         result.push(w);
     });
+    console.log(`Dead-Filter:  ${letters}, words:${words.length} => ${result.length}`);
+
     return result;
   }
 
