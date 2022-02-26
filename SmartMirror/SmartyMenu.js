@@ -3,9 +3,16 @@ console.log('SmaryMenu loaded and ready, Sir!');
 const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday',
     'Thursday', 'Friday', 'Saturday'];
 
+const oneMinute = 60;
+const oneHour = 60 * oneMinute;
+
+
 const appStatus = {
     numMenuLoads: 0,
     numPingsMissed: 0,
+    secondsBetweenMenuLoads: oneHour,
+    secondsForAppReload: 4 * oneHour,
+    lastLoaded: new Date(),
 };
 
 
@@ -83,10 +90,29 @@ const displayMenu = (obj) => {
     }
 }
 
-const updateFooter = () => {
+const secondsToHMS = (secs) => {
+
+    const nHr = Math.floor(secs / oneHour);
+    secs -= nHr * oneHour;
+
+    const nMin = Math.floor(secs / oneMinute);
+    secs -= nMin * oneMinute;
+
+    let s = '';
+    if (nHr > 0) s += `${nHr}hr `;
+    if (nMin > 0) s += `${nMin}m`;
+    if (secs > 0) s += ` ${secs}s`
+
+    return s;
+}
+
+const updateStatusInfo = () => {
 
     const footEl = document.getElementById('footer');
-    footEl.innerText = `Menu Loads: ${appStatus.numMenuLoads}, Pings Missed: ${appStatus.numPingsMissed}`;
+    footEl.innerText = `Menu Loads: ${appStatus.numMenuLoads}, Pings Missed: ${appStatus.numPingsMissed}, ` +
+        `Menus:${secondsToHMS(appStatus.secondsBetweenMenuLoads)}, ` +
+        `Reload:${secondsToHMS(appStatus.secondsForAppReload)}, ` +
+        `Last Loaded:${appStatus.lastLoaded.toLocaleDateString()} at ${appStatus.lastLoaded.toLocaleTimeString()}`;
 }
 
 const doMenu = async () => {
@@ -109,7 +135,7 @@ const doDataFetch = () => {
         doMenu();
         appStatus.numMenuLoads += 1;
 
-        updateFooter();
+        updateStatusInfo();
 
     } catch (err) {
         throw err;
@@ -157,7 +183,7 @@ const mainLoop = (numSeconds) => {
         doNightAndDay();
         doDataFetch();
     } catch (error) {
-        dbgLog(`mainLoop:err:${err}`);
+        dbgLog(`mainLoop:err:${error}`);
     }
 
     setInterval(() => {
@@ -234,7 +260,7 @@ bodyEl.addEventListener('click', (ev) => {
     try {
         // dbgLog('Clicked', 1);
         swapToFullScreen(0);
-    } catch(err) {
+    } catch (err) {
     }
 });
 
@@ -244,10 +270,10 @@ bodyEl.addEventListener('click', (ev) => {
 //     dbgLog(`Some quite long text for debug puroposes: ${nHello}`, 1)
 // }, 1000);
 
-const oneSecond = 60;
-const oneHour = 60*oneSecond;
+setInterval(() => updateStatusInfo(), 1000);
+
 mainLoop(oneHour);
-autoRefeshEvery(4*oneHour);
+autoRefeshEvery(4 * oneHour);
 
 
 

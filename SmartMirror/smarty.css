@@ -77,7 +77,8 @@ p {
 div.foot {
   position: fixed;
   bottom: 0px;
-  font-size: small;
+  font-size: x-small;
+  color: rgba(3, 2, 2, 0.50);
 }
 
 
