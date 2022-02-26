@@ -1,16 +1,17 @@
 
-console.log('SmaryMenu loaded and ready, Sir!');
+// console.log('SmartyMenu loaded and ready, Sir!');
 const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday',
     'Thursday', 'Friday', 'Saturday'];
 
-const oneMinute = 60;
-const oneHour = 60 * oneMinute;
+const oneSecond = (1000);
+const oneMinute = (60 * oneSecond);
+const oneHour = (60 * oneMinute);
 
 
 const appStatus = {
     numMenuLoads: 0,
     numPingsMissed: 0,
-    secondsBetweenMenuLoads: oneHour,
+    secondsBetweenMenuLoads: 30*oneMinute,
     secondsForAppReload: 4 * oneHour,
     lastLoaded: new Date(),
 };
@@ -90,13 +91,18 @@ const displayMenu = (obj) => {
     }
 }
 
-const secondsToHMS = (secs) => {
+const dTimeToHMS = (dTime) => {
 
-    const nHr = Math.floor(secs / oneHour);
-    secs -= nHr * oneHour;
+    const secondsInMinute = 60
+    const secondsInHr = (60*secondsInMinute);
 
-    const nMin = Math.floor(secs / oneMinute);
-    secs -= nMin * oneMinute;
+    let secs = Math.floor(dTime / 1000);
+
+    const nHr = Math.floor(secs / secondsInHr);
+    secs -= nHr * secondsInHr;
+
+    const nMin = Math.floor(secs / secondsInMinute);
+    secs -= nMin * secondsInMinute;
 
     let s = '';
     if (nHr > 0) s += `${nHr}hr `;
@@ -110,8 +116,8 @@ const updateStatusInfo = () => {
 
     const footEl = document.getElementById('footer');
     footEl.innerText = `Menu Loads: ${appStatus.numMenuLoads}, Pings Missed: ${appStatus.numPingsMissed}, ` +
-        `Menus:${secondsToHMS(appStatus.secondsBetweenMenuLoads)}, ` +
-        `Reload:${secondsToHMS(appStatus.secondsForAppReload)}, ` +
+        `Menus:${dTimeToHMS(appStatus.secondsBetweenMenuLoads)}, ` +
+        `Reload:${dTimeToHMS(appStatus.secondsForAppReload)}, ` +
         `Last Loaded:${appStatus.lastLoaded.toLocaleDateString()} at ${appStatus.lastLoaded.toLocaleTimeString()}`;
 }
 
@@ -177,7 +183,7 @@ const doNightAndDay = () => {
     }
 }
 
-const mainLoop = (numSeconds) => {
+const mainLoop = (dTime) => {
 
     try {
         doNightAndDay();
@@ -196,7 +202,7 @@ const mainLoop = (numSeconds) => {
             dbgLog(`mainLoop:err:${err}`);
         }
 
-    }, numSeconds * 1000);
+    }, dTime);
 }
 
 const refreshPage = async () => {
@@ -218,12 +224,12 @@ const refreshPage = async () => {
     }
 }
 
-const autoRefeshEvery = (numSeconds) => {
+const autoRefeshEvery = (dTime) => {
 
-    setInterval(refreshPage, numSeconds * 1000);
+    setInterval(refreshPage, dTime);
 }
 
-const swapToFullScreen = (numSeconds) => {
+const swapToFullScreen = (dTime) => {
 
     try {
 
@@ -244,10 +250,10 @@ const swapToFullScreen = (numSeconds) => {
                 dbgLog('Unknown full screen', 1);
             }
         }
-        if (numSeconds === 0) {
+        if (dTime === 0) {
             fullScreen();
         } else {
-            setTimeout(fullScreen, numSeconds * 1000);
+            setTimeout(fullScreen, dTime);
         }
     } catch (error) {
         dbgLog(`failed full screen: ${error}`);
@@ -268,12 +274,12 @@ bodyEl.addEventListener('click', (ev) => {
 // setInterval( () => {
 //     nHello += 1;
 //     dbgLog(`Some quite long text for debug puroposes: ${nHello}`, 1)
-// }, 1000);
+// }, oneSecond);
 
-setInterval(() => updateStatusInfo(), 1000);
+setTimeout(() => updateStatusInfo(), oneSecond);
 
-mainLoop(oneHour);
-autoRefeshEvery(4 * oneHour);
+mainLoop(appStatus.secondsBetweenMenuLoads);
+autoRefeshEvery(appStatus.secondsForAppReload);
 
 
 
