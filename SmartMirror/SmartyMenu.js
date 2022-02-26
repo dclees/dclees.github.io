@@ -229,6 +229,25 @@ const autoRefeshEvery = (dTime) => {
     setInterval(refreshPage, dTime);
 }
 
+const timeLoop = (dTime) => {
+
+    // const dateEl = document.getElementById('date_now');
+    const timeEl = document.getElementById('time_now');
+
+    setInterval( () => {
+
+        try {
+            const t = new Date();
+            timeEl.innerText = `${t.toLocaleTimeString()}`;
+            // dateEl.innerText = `${t.toLocaleDateString()}`
+
+        } catch (error) {
+            dbgLog(`Can't get time ${error}`);
+        }
+
+    }, dTime);
+}
+
 const swapToFullScreen = (dTime) => {
 
     try {
@@ -278,6 +297,7 @@ bodyEl.addEventListener('click', (ev) => {
 
 setTimeout(() => updateStatusInfo(), oneSecond);
 
+timeLoop(oneSecond);
 mainLoop(appStatus.secondsBetweenMenuLoads);
 autoRefeshEvery(appStatus.secondsForAppReload);
 

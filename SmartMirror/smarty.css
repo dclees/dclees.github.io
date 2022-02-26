@@ -12,12 +12,10 @@ html, body {
   min-height: 100vh;
 }
 
-/* body {
-  background-image: url('background.jpg');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-} */
+
+h1 {
+  font-size: 2rem;
+}
 
 footer {
   display: flex;
@@ -89,6 +87,7 @@ div.foot {
 
   grid-template-areas:
     'a date b'
+    'r time s'
     'd lunch f'
     'm dinner o'
     'p info q'
@@ -119,16 +118,26 @@ div.foot {
 
 .lunch {
   grid-area: lunch;
+  background-color: rgba(97, 148, 182, 0.3);
 }
 
 .dinner {
   grid-area: dinner;
+  background-color: rgba(97, 148, 182, 0.3);
 }
 
 .info {
   grid-area: info;
   min-height: 200px;
+  background-color: rgba(97, 148, 182, 0.3);
 }
+
+.time_now {
+  grid-area: time;
+  /* font-size: xx-large; */
+  /* font-size: 3rem; */
+}
+
 
 .debug {
   grid-area: debug;
