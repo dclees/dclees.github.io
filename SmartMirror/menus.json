@@ -1,0 +1,93 @@
+{
+    "Monday": {
+        "day": "Monday 18th January",
+        "lunch": {
+            "starter": "No Starter",
+            "mains": "Some sort of fish",
+            "pudding": "Not lemon"
+        },
+        "dinner": {
+            "starter": "No Starter",
+            "mains": "Something light",
+            "pudding": "Not Chocolate"
+        }
+    },
+    "Tuesday": {
+        "day": "Tuesday 19th January",
+        "lunch": {
+            "starter": "No Starter",
+            "mains": "Some sort of fish",
+            "pudding": "Not lemon"
+        },
+        "dinner": {
+            "starter": "No Starter",
+            "mains": "Something light",
+            "pudding": "Not Chocolate"
+        }
+    },
+    "Wednesday": {
+        "day": "Wednesday 20th January",
+        "lunch": {
+            "starter": "No Starter",
+            "mains": "Some sort of fish",
+            "pudding": "Not lemon"
+        },
+        "dinner": {
+            "starter": "No Starter",
+            "mains": "Something light",
+            "pudding": "Not Chocolate"
+        }
+    },
+    "Thursday": {
+        "day": "Thursday 21st January",
+        "lunch": {
+            "starter": "No Starter",
+            "mains": "Some sort of fish",
+            "pudding": "Not lemon"
+        },
+        "dinner": {
+            "starter": "No Starter",
+            "mains": "Something light",
+            "pudding": "Not Chocolate"
+        }
+    },
+    "Friday": {
+        "day": "Friday 22nd January",
+        "lunch": {
+            "starter": "No Starter",
+            "mains": "Some sort of fish",
+            "pudding": "Not lemon"
+        },
+        "dinner": {
+            "starter": "No Starter",
+            "mains": "Something light",
+            "pudding": "Not Chocolate"
+        }
+    },
+    "Saturday": {
+        "day": "Saturday 23rd January",
+        "lunch": {
+            "starter": "No Starter",
+            "mains": "Some sort of fish",
+            "pudding": "Not lemon"
+        },
+        "dinner": {
+            "starter": "No Starter",
+            "mains": "Something light",
+            "pudding": "Not Chocolate"
+        }
+    },
+    "Sunday": {
+        "day": "Sunday 24th January",
+        "lunch": {
+            "starter": "No Starter",
+            "mains": "Some sort of fish",
+            "pudding": "Not lemon"
+        },
+        "dinner": {
+            "starter": "No Starter",
+            "mains": "Something light",
+            "pudding": "Not Chocolate"
+        }
+    }
+}
