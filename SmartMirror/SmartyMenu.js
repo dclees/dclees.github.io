@@ -228,14 +228,14 @@ const swapToFullScreen = (numSeconds) => {
     }
 }
 
-mainLoop(5);
-autoRefeshEvery(10 * 60);
-
 const bodyEl = document.getElementById("body");
 bodyEl.addEventListener('click', (ev) => {
 
-    // dbgLog('Clicked', 1);
-    swapToFullScreen(0);
+    try {
+        // dbgLog('Clicked', 1);
+        swapToFullScreen(0);
+    } catch(err) {
+    }
 });
 
 // let nHello = 0;
@@ -244,6 +244,10 @@ bodyEl.addEventListener('click', (ev) => {
 //     dbgLog(`Some quite long text for debug puroposes: ${nHello}`, 1)
 // }, 1000);
 
-// dbgLog('Loaded', 1);
-// dbgLog('Loaded', 1);
+const oneSecond = 60;
+const oneHour = 60*oneSecond;
+mainLoop(oneHour);
+autoRefeshEvery(4*oneHour);
+
+
 
