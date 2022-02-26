@@ -1,0 +1,135 @@
+html, body {
+  font-size: large;
+  font-weight: 600;
+
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  /* width: 100vw; */
+  /* min-width: 100vw; */
+
+  height: 100vh;
+  min-height: 100vh;
+}
+
+/* body {
+  background-image: url('background.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+} */
+
+footer {
+  display: flex;
+  /* justify-content: center; */
+  padding: 5px;
+  /* background-color: #45a1ff; */
+  color: rgb(109, 99, 99);
+}
+
+p {
+  margin: 5px;
+}
+
+.squeeze {
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+
+.daytime {
+  background-color: rgb(162, 193, 230);
+  color: rgb(41, 37, 37);
+  background-image: url('day_background.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  /* background-size: cover; */
+  background-size: 100% 100%;
+}
+
+.nighttime {
+  background-color: rgb(2, 20, 43);
+  color: rgb(139, 131, 131);
+  background-image: url('night_background.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  /* background-size: cover; */
+  background-size: 100% 100%;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.center_horiz {
+
+  justify-content: center;
+  text-align: center;
+}
+
+
+.bordered {
+  border-color: rgb(99, 95, 95);
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 12px;
+}
+
+div.foot {
+  position: fixed;
+  bottom: 0px;
+  font-size: small;
+}
+
+
+.grid-container {
+
+  display: grid;
+  grid-gap: 10px;
+
+  grid-template-areas:
+    'a date b'
+    'd lunch f'
+    'm dinner o'
+    'p info q'
+    'debug debug debug';
+
+
+  grid-template-columns: 10% auto 10%;
+  grid-auto-rows: minmax(10px, auto);
+}
+
+.grid-item {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center; */
+  text-align: center;
+
+  /* height: 100%;
+  width: 100%; */
+  border-radius: 8px;
+
+  transition: all 500ms;
+}
+
+.date {
+  grid-area: date;
+}
+
+.lunch {
+  grid-area: lunch;
+}
+
+.dinner {
+  grid-area: dinner;
+}
+
+.info {
+  grid-area: info;
+  min-height: 200px;
+}
+
+.debug {
+  grid-area: debug;
+  font-size: large;
+}
