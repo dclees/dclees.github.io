@@ -18,7 +18,7 @@ function doMatrixRain() {
       this.ctx = this.canvas.getContext("2d");
       this.resize();
       this.dt = 0;
-      this.timeToDraw = 100;
+      this.timeBetweenFrames = 60;
     }
 
     getNewCharHeight() {
@@ -40,19 +40,31 @@ function doMatrixRain() {
       const numColumns = this.width / this.charWidth;
       this.columns = [];
       for (let n = 0; n < numColumns; n++) {
-        const ch = { yAt: this.getNewCharHeight() };
+        const ch = { 
+          yAt: -5*this.getNewCharHeight(), 
+          yPrev: -1, 
+          ch: ' ',
+          chPrev: ' ',
+        };
         this.columns.push(ch);
       }
     }
 
     update(dt) {
-      dt = Math.min(20, dt);
+      // dt = Math.min(20, dt);
       this.dt += dt;
-      let bDraw = this.dt > this.timeToDraw;
+      let bDraw = (this.dt > this.timeBetweenFrames);
       if (bDraw) {
-        this.dt -= this.timeToDraw;
+        this.dt -= this.timeBetweenFrames;
+
+        const numChs = allSymbols.length;
         this.columns.forEach((column) => {
+
+          column.chPrev = column.ch;
+          column.yPrev = column.yAt;
+
           column.yAt += this.charHeight;
+          column.ch = allSymbols.charAt(Math.floor(numChs * Math.random()));
           if (column.yAt > this.height) {
             column.yAt = this.getNewCharHeight();
           }
@@ -65,22 +77,27 @@ function doMatrixRain() {
       this.ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
       this.ctx.fillRect(0, 0, this.width, this.height);
 
-      this.ctx.fillStyle = "#00aa00";
       this.ctx.textAlign = "center";
       this.ctx.font = this.font;
+
+      this.ctx.fillStyle = "#00aa00";
       let xAt = 0.5 * this.charWidth;
       this.columns.forEach((column) => {
-        const numChs = allSymbols.length;
-        const ch = allSymbols.charAt(Math.floor(numChs * Math.random()));
 
-        this.ctx.fillText(ch, xAt, column.yAt);
+        this.ctx.fillText(column.chPrev, xAt, column.yPrev);
+        xAt += this.charWidth;
+      });
+
+      this.ctx.fillStyle = "#aaff55";
+      xAt = 0.5 * this.charWidth;
+      this.columns.forEach((column) => {
+        this.ctx.fillText(column.ch, xAt, column.yAt);
         xAt += this.charWidth;
       });
     }
   }
 
   const animUpdate = (time) => {
-    // const cv = document.getElementById("canvasMatrixRain");
 
     const deltaTime = time - lastTime;
     lastTime = time;
@@ -90,7 +107,6 @@ function doMatrixRain() {
     }
 
     requestAnimationFrame(animUpdate);
-    // console.log("frame");
   };
 
   getCanvas = () => {
