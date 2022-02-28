@@ -17,14 +17,6 @@ h1 {
   font-size: 2rem;
 }
 
-footer {
-  display: flex;
-  /* justify-content: center; */
-  padding: 5px;
-  /* background-color: #45a1ff; */
-  color: rgb(109, 99, 99);
-}
-
 p {
   margin: 5px;
 }
@@ -72,11 +64,11 @@ p {
   border-radius: 12px;
 }
 
-div.foot {
+.foot {
   position: fixed;
   bottom: 0px;
-  font-size: x-small;
-  color: rgba(3, 2, 2, 0.50);
+  font-size: small;
+  color: rgba(0, 128, 128, 1.50);
 }
 
 
@@ -88,7 +80,7 @@ div.foot {
   grid-template-areas:
     'a date b'
     'r time s'
-    'd lunch f'
+    'd menus f'
     'm dinner o'
     'p info q'
     'debug debug debug';
@@ -101,8 +93,8 @@ div.foot {
 .grid-item {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
-  /* align-items: center; */
+  justify-content: center;
+  align-items: center;
   text-align: center;
 
   /* height: 100%;
@@ -114,6 +106,11 @@ div.foot {
 
 .date {
   grid-area: date;
+}
+
+.menus {
+  grid-area: menus;
+  background-color: rgba(97, 148, 182, 0.3);
 }
 
 .lunch {
@@ -128,6 +125,8 @@ div.foot {
 
 .info {
   grid-area: info;
+  justify-content: flex-start;
+
   min-height: 200px;
   background-color: rgba(97, 148, 182, 0.3);
 }

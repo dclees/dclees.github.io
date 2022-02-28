@@ -9,9 +9,10 @@ const oneHour = (60 * oneMinute);
 
 
 const appStatus = {
+    numDisplay: 0,
     numMenuLoads: 0,
     numPingsMissed: 0,
-    secondsBetweenMenuLoads: 30*oneMinute,
+    secondsBetweenMenuLoads: 30 * oneMinute,
     secondsForAppReload: 4 * oneHour,
     lastLoaded: new Date(),
 };
@@ -36,6 +37,10 @@ const addDebug = (str) => {
 
 const dbgLog = (str, level) => {
     if (level > 0) {
+
+        const dbgMainEl = document.getElementById("dbgMain");
+        dbgMainEl.hidden = false;
+    
         console.log(str);
         addDebug(str);
     }
@@ -94,7 +99,7 @@ const displayMenu = (obj) => {
 const dTimeToHMS = (dTime) => {
 
     const secondsInMinute = 60
-    const secondsInHr = (60*secondsInMinute);
+    const secondsInHr = (60 * secondsInMinute);
 
     let secs = Math.floor(dTime / 1000);
 
@@ -114,8 +119,10 @@ const dTimeToHMS = (dTime) => {
 
 const updateStatusInfo = () => {
 
+    appStatus.numDisplay += 1;
+
     const footEl = document.getElementById('footer');
-    footEl.innerText = `Menu Loads: ${appStatus.numMenuLoads}, Pings Missed: ${appStatus.numPingsMissed}, ` +
+    footEl.innerText = `${appStatus.numDisplay}) Menu Loads: ${appStatus.numMenuLoads}, Pings Missed: ${appStatus.numPingsMissed}, ` +
         `Menus:${dTimeToHMS(appStatus.secondsBetweenMenuLoads)}, ` +
         `Reload:${dTimeToHMS(appStatus.secondsForAppReload)}, ` +
         `Last Loaded:${appStatus.lastLoaded.toLocaleDateString()} at ${appStatus.lastLoaded.toLocaleTimeString()}`;
@@ -229,21 +236,32 @@ const autoRefeshEvery = (dTime) => {
     setInterval(refreshPage, dTime);
 }
 
+
+const showTime = () => {
+
+    try {
+        const t = new Date();
+        const nHr = t.getHours();
+        const nMins = t.getMinutes();
+        const ampm = (nHr > 11)? 'pm' : 'am';
+
+        const sHr = (nHr%12).toString().padStart(2, '0');
+        const sMin = (nMins%12).toString().padStart(2, '0');
+
+        const timeEl = document.getElementById('time_now');
+        timeEl.innerText = `${sHr}:${sMin} ${ampm}`;
+
+    } catch (error) {
+        dbgLog(`Can't get time ${error}`);
+    }
+}
+
 const timeLoop = (dTime) => {
 
-    // const dateEl = document.getElementById('date_now');
-    const timeEl = document.getElementById('time_now');
+    showTime();
+    setInterval(() => {
 
-    setInterval( () => {
-
-        try {
-            const t = new Date();
-            timeEl.innerText = `${t.toLocaleTimeString()}`;
-            // dateEl.innerText = `${t.toLocaleDateString()}`
-
-        } catch (error) {
-            dbgLog(`Can't get time ${error}`);
-        }
+        showTime();
 
     }, dTime);
 }
@@ -268,6 +286,7 @@ const swapToFullScreen = (dTime) => {
             } else {
                 dbgLog('Unknown full screen', 1);
             }
+            dbgLog("Fullscreen");
         }
         if (dTime === 0) {
             fullScreen();
@@ -295,11 +314,15 @@ bodyEl.addEventListener('click', (ev) => {
 //     dbgLog(`Some quite long text for debug puroposes: ${nHello}`, 1)
 // }, oneSecond);
 
-setTimeout(() => updateStatusInfo(), oneSecond);
+const main = () => {
 
-timeLoop(oneSecond);
-mainLoop(appStatus.secondsBetweenMenuLoads);
-autoRefeshEvery(appStatus.secondsForAppReload);
+    const dbgMainEl = document.getElementById("dbgMain");
+    dbgMainEl.hidden = true;
 
+    setTimeout(() => updateStatusInfo(), oneMinute);
+    timeLoop(10*oneSecond);
+    mainLoop(appStatus.secondsBetweenMenuLoads);
+    autoRefeshEvery(appStatus.secondsForAppReload);
+}
 
-
+window.onload = function() { main(); };
