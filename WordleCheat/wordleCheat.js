@@ -300,7 +300,7 @@ window.onload = () => {
 
   const showFilteredWords = () => {
 
-    const filteredWords = getFilteredWords().join(', ').toLowerCase();
+    const filteredWords = getFilteredWords().join(' ').toLowerCase();
     const elPossibleWords = document.getElementById('possible-words');
     elPossibleWords.innerText = filteredWords
   }
