@@ -36,7 +36,8 @@ const addDebug = (str) => {
 
 
 const dbgLog = (str, level) => {
-    if (level > 0) {
+    // if (level > 0)
+     {
 
         const dbgMainEl = document.getElementById("dbgMain");
         dbgMainEl.hidden = false;
@@ -74,7 +75,6 @@ const displayMenu = (obj) => {
         let day = d.getDay();
         const todayName = dayNames[d.getDay()];
         const todaysMenu = obj[todayName];
-        dbgLog(`Day:${day}:${todayName}`);
 
         const dayEl = document.getElementById('date');
         dayEl.innerText = `${todaysMenu.day}`
@@ -161,7 +161,7 @@ const doNightAndDay = () => {
 
         const now = new Date();
         now.getHours();
-        dbgLog(`${now.getHours()}:${now.getMinutes()}`);
+        // dbgLog(`doNightAndDay:${now.getHours()}:${now.getMinutes()}`);
 
         // const mins = now.getMinutes();
         // const isDayTime = ((mins % 2) == 0);
@@ -246,10 +246,13 @@ const showTime = () => {
         const ampm = (nHr > 11)? 'pm' : 'am';
 
         const sHr = (nHr%12).toString().padStart(2, '0');
-        const sMin = (nMins%12).toString().padStart(2, '0');
+        const sMin = nMins.toString().padStart(2, '0');
 
         const timeEl = document.getElementById('time_now');
-        timeEl.innerText = `${sHr}:${sMin} ${ampm}`;
+        const tStr = `${sHr}:${sMin} ${ampm}`;
+        timeEl.innerText = tStr;
+
+        dbgLog(`showTime:${tStr}`);
 
     } catch (error) {
         dbgLog(`Can't get time ${error}`);
@@ -302,7 +305,6 @@ const bodyEl = document.getElementById("body");
 bodyEl.addEventListener('click', (ev) => {
 
     try {
-        // dbgLog('Clicked', 1);
         swapToFullScreen(0);
     } catch (err) {
     }
