@@ -1,0 +1,127 @@
+body {
+    background-color: rgb(58, 7, 82);
+    color: white;
+
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+hr {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+
+.bordered {
+    border: 3px solid rgb(255, 255, 255);
+    border-radius: 20px;
+}
+
+.vertical-center {
+    margin: 0;
+    position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+
+    height: 100vh;
+
+    align-items: center;
+    justify-content: space-evenly;
+
+    /* gap: 1rem; */
+}
+
+.datetime-box {
+    width: 80%;
+    height: 8vh;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.date-item {
+    font-size: 2rem;
+}
+
+.date-disp {
+    margin: 0;
+}
+
+.time-item {
+    font-size: 4rem;
+}
+
+.main {
+    width: 80%;
+    height: 60vh;
+
+    display: flex;
+
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    /* justify-content: space-around; */
+
+}
+
+.menus {
+    font-size: 1.5rem;
+    text-align: center;
+
+    width: 80%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+
+.meal-item {
+    height: 40%;
+}
+
+.meal-disp {
+    padding: 8px;
+    margin: 0px;
+}
+
+.calendar {
+    font-size: 1.5rem;
+    text-align: center;
+    width: 80%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.weather {
+    height: 20%;
+    width: 80%;
+    font-size: 1.5rem;
+
+    padding: 0;
+    margin: 0;
+    align-content: center;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+
+.weather-item {
+    text-align: right;
+    margin: 0;
+}
