@@ -245,7 +245,8 @@ const showTime = () => {
         const nMins = t.getMinutes();
         const ampm = (nHr > 11)? 'pm' : 'am';
 
-        const sHr = (nHr%12).toString().padStart(2, '0');
+        const dispHr = (nHr <= 12) ? nHr : nHr-12;
+        const sHr = dispHr.toString().padStart(2, '0');
         const sMin = nMins.toString().padStart(2, '0');
 
         const timeEl = document.getElementById('time_now');
