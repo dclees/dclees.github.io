@@ -128,7 +128,6 @@ mirror = {
 
         _displayCalendar: function() {
 
-            let nDisp = 1;
             let str = '';
             this.calender.forEach( c => {
 
@@ -136,13 +135,9 @@ mirror = {
                 c.forEach(l => {
                     str += l + '<br>';
                 })
-
                 str += '<hr></div>'
-
-                nDisp += 1;
             });
             document.getElementById('disp-calendar').innerHTML = str;
-
         },
 
         _fetchCalendar: async function () {
