@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./mirror.css" />
+    <script src="./mirror.js"></script>
     <title>Mirror Mirror</title>
 </head>
 
@@ -14,11 +15,8 @@
     <div class="content">
 
         <div class="datetime-box">
-            <div class="date-item">
-                <p class="date-disp">Saturday</p>
-                <p class="date-disp">5th March</p>
-            </div>
-            <div class="time-item">13:04 pm</div>
+            <div class="date-item date-disp" id="disp-date">Saturday<br>5th March</div>
+            <div class="time-item" id="disp-time">13:04 pm</div>
         </div>
 
         <div class="main">
@@ -44,19 +42,18 @@
 
             <div class="calendar bordered">
                 <p>Calendar</p>
-                <hr>
 
                 <p>Maxillofacial<br>
                     Thursday, 16th March<br>
                     Appointment: 2:30 pm<br>
-                    Pickup: 1:30 pm
+                    Pickup: 1:30 pm</p>
+                <hr>
 
-                    <hr>
                 <p>Hairdresser<br>
                     Tuesday, 22nd March<br>
                     Appointment: 2:30 pm<br>
-                    Pickup: 2:10 pm
-                </p>
+                    Pickup: 2:10 pm </p>
+                <hr>
             </div>
 
         </div>
@@ -65,8 +62,8 @@
 
             <div>
                 <p class="weather-item vertical-center">Temp: 10C<br>
-                min: 3C<br>
-                max: 12C</p>
+                    min: 3C<br>
+                    max: 12C</p>
             </div>
 
             <div class="vertical-center">
