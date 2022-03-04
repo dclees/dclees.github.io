@@ -1,15 +1,15 @@
-const oneSecond = 1000;
-const oneMinute = 60 * oneSecond;
-const oneHour = 60 * oneMinute;
+const mirror = {
 
-const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const months = ['January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-];
+    _oneSecond: 1000, // msecs in a second
+    _oneMinute: 60 * 1000, // msecs in a minute = 60secs*1000
+    _oneHour: 60 * 1000 * 1000, // msecs in hour = 60mins*60secs*1000
 
+    _days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    _months: ['January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ],
 
-
-mirror = {
+    _appID: '',
 
     _dateHandler: {
 
@@ -60,9 +60,9 @@ mirror = {
 
             // date
             {
-                const nDayName = days[t.getDay()];
+                const nDayName = mirror._days[t.getDay()];
                 const nDate = this._getPrettyDate(t.getDate());
-                const nMonth = months[t.getMonth()];
+                const nMonth = mirror._months[t.getMonth()];
 
                 document.getElementById('disp-date').innerHTML = `${nDayName}<br>${nDate} of ${nMonth}`;
             }
@@ -74,7 +74,7 @@ mirror = {
             this._displayTimeAndDate();
             setInterval(() => {
                 this._displayTimeAndDate();
-            }, oneSecond);
+            }, mirror._oneSecond);
         },
     },
 
@@ -82,7 +82,9 @@ mirror = {
     _dataCollector: {
 
         _fetchJSON: async function (url) {
-            const d = fetch(url)
+
+            const fullURL = `${url}?appid=${mirror._appID}`;
+            const d = fetch(fullURL)
                 .then(resp => {
                     if (resp.ok) {
                         return resp.json();
@@ -108,30 +110,34 @@ mirror = {
                 try {
                     this._menus = await mirror._dataCollector._fetchJSON('./menus.json');
                 } catch (err) {
-                    console.log('menu fail');
+                    console.log('menu fail', err);
                 }
             },
 
             _display: function () {
 
-                // console.log('displayMenus start');
-                if (this._menus) {
-                    const d = new Date();
-                    const day = days[d.getDay()];
+                try {
+                    // console.log('displayMenus start');
+                    if (this._menus) {
+                        const d = new Date();
+                        const day = mirror._days[d.getDay()];
 
-                    if (this._menus[day]) {
+                        if (this._menus[day]) {
 
-                        const m = this._menus[day];
-                        document.getElementById('disp-lunch').innerHTML = `${m.lunch.starter}<br>${m.lunch.mains}<br>${m.lunch.pudding}`;
-                        document.getElementById('disp-dinner').innerHTML = `${m.dinner.starter}<br>${m.dinner.mains}<br>${m.dinner.pudding}`;
+                            const m = this._menus[day];
+                            document.getElementById('disp-lunch').innerHTML = `${m.lunch.starter}<br>${m.lunch.mains}<br>${m.lunch.pudding}`;
+                            document.getElementById('disp-dinner').innerHTML = `${m.dinner.starter}<br>${m.dinner.mains}<br>${m.dinner.pudding}`;
 
+                        } else {
+                            console.log('No menu day', day, this._menus);
+                        }
                     } else {
-                        console.log('No menu day', day, this._menus);
+                        console.log('No menus at all');
                     }
-                } else {
-                    console.log('No menus at all');
+                    // console.log('displayMenus end');
+                } catch (err) {
+                    console.log('Menus fail:', err);
                 }
-                // console.log('displayMenus end');
             },
         },
 
@@ -141,16 +147,20 @@ mirror = {
 
             _display: function () {
 
-                let str = '';
-                this._calender.forEach(c => {
+                try {
+                    let str = '';
+                    this._calender.forEach(c => {
 
-                    str += '<div><hr>'
-                    c.forEach(l => {
-                        str += l + '<br>';
-                    })
-                    str += '<hr></div>'
-                });
-                document.getElementById('disp-calendar').innerHTML = str;
+                        str += '<div><hr>'
+                        c.forEach(l => {
+                            str += l + '<br>';
+                        })
+                        str += '<hr></div>'
+                    });
+                    document.getElementById('disp-calendar').innerHTML = str;
+                } catch (err) {
+                    console.log('Calendar failed', err);
+                }
             },
 
             _fetch: async function () {
@@ -158,7 +168,7 @@ mirror = {
                 try {
                     this._calender = await mirror._dataCollector._fetchJSON('./calendar.json');
                 } catch (err) {
-                    console.log('calendar fail');
+                    console.log('calendar fail', err);
                 }
             },
         },
@@ -178,19 +188,23 @@ mirror = {
 
             _display: function () {
 
-                const w = this._weather;
-                const deg = `&#176;`;
+                try {
+                    const w = this._weather;
+                    const deg = `&#176;`;
 
-                document.getElementById('disp-temp').innerHTML = `
+                    document.getElementById('disp-temp').innerHTML = `
                 Current: ${w.main.temp.toFixed(1)}${deg}C<br>
                 Max: ${w.main.temp_max.toFixed(1)}${deg}C<br>
                 Min: ${w.main.temp_min.toFixed(1)}${deg}C<br>
                 Feels like: ${w.main.feels_like.toFixed(1)}${deg}C
                 `;
 
-                const icon = w.weather[0].icon;
-                document.getElementById('disp-weather-icon').src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
-                document.getElementById('disp-weather-description').innerText = `${w.weather[0].description}`
+                    const icon = w.weather[0].icon;
+                    document.getElementById('disp-weather-icon').src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+                    document.getElementById('disp-weather-description').innerText = `${w.weather[0].description}`;
+                } catch (err) {
+                    console.log('Weather failed', err);
+                }
             }
         },
 
@@ -213,7 +227,7 @@ mirror = {
 
         _setupFetchData: function () {
             this._fetchData();
-            setInterval(() => this._fetchData(), 5 * oneMinute);
+            setInterval(() => this._fetchData(), 5 * mirror._oneMinute);
         }
     },
 
