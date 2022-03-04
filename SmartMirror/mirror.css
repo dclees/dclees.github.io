@@ -117,11 +117,13 @@ hr {
 
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
 
 
 .weather-item {
     text-align: right;
-    margin: 0;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 0px;
 }
