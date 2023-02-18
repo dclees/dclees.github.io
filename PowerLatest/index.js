@@ -12,6 +12,16 @@ const userBtnClick = () => {
   getLatestPower();
 };
 
+// Handle return key on label/userID
+const userID = document.getElementById("userID"); // add key listener
+userID.addEventListener("keypress", (e) => {
+  // console.log('Key press:', e.key);
+  if (e.key == "Enter") {
+    // console.log('Enter key');
+    userBtnClick();
+  }
+});
+
 const displayLatestPower = (powerNow, energyToday, date) => {
   const elPower = document.getElementById("PowerNow");
   const elEnergy = document.getElementById("EnergyToday");
