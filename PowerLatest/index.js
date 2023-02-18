@@ -74,7 +74,7 @@ const getLatestPower = async () => {
         const date = new Date(year, month - 1, day, hour, mins, secs);
 
         displayLatestPower(powerNow, energyToday, date);
-        console.log(`Power data updated: ${hour}:${mins}:${secs}`);
+        console.log(`Power data updated: ${date.toLocaleString()}`);
       } catch (error) {
         console.log("Bad power object returned:", error);
       }
