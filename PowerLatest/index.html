@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Power Stats : Latest</title>
+    <style>
+      .header {
+        text-align: center;
+      }
+      .head1 {
+        font-size: 40px;
+        color: #023102;
+        font-weight: bold;
+      }
+      .head2 {
+        font-size: 17px;
+        margin-left: 10px;
+        margin-bottom: 15px;
+        font-weight: bold;
+      }
+      body {
+        margin: 0 auto;
+        background-position: center;
+        background-size: contain;
+        text-align: center;
+      }
+      footer {
+        width: 100%;
+        bottom: 0px;
+        background-color: #919191;
+        color: #fff;
+        position: absolute;
+        padding-top: 10px;
+        padding-bottom: 5px;
+        text-align: center;
+        font-size: 10px;
+        font-weight: bold;
+      }
+      label {
+        font: 1rem "Fira Sans", sans-serif;
+      }
+
+      .body_sec {
+        /* margin-left:20px; */
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header Section -->
+    <header class="header">
+      <div class="head2">Latest Power Stats</div>
+      <!-- <div class="head2">A computer science portal for geeks</div> -->
+    </header>
+
+    <!-- Body section -->
+    <main class="body_sec">
+      <section id="Content">
+        <h3>Power at : <span id="PowerDate"></span></h3>
+        <h3>Current : <span id="PowerNow">Unknown</span> Watts</h3>
+        <h3>Today : <span id="EnergyToday">Unknown</span> KWattHrs</h3>
+        <br />
+        <h4>Current time: <span id="DateTimeNow"></span></h4>
+      </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+      <div>
+        <label>User ID: <input type="text" id="userID" /></label>
+        <button onclick="userBtnClick()" style="padding: 0px; margin: 0px">
+          Submit
+        </button>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="index.js" defer></script>
+  </body>
+</html>
